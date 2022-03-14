@@ -1,0 +1,152 @@
+# python object oreiented programming
+
+class Employee:
+    raise_percent = 1.05
+
+    def __init__(self, first, last, pay):
+        self.first = first
+        self.last = last
+        self.pay = pay
+        self.email = first + '.' + last + '@up.edu'
+
+    def fullname(self):
+        return '{}{}'.format(self.first, self.last)
+
+    def apply_raise(self):
+        self.pay = int(self.pay * self.raise_percent)
+
+
+class Developer(Employee):
+    raise_percent = 1.10
+
+    def __init__(self,first,last,pay,prog_lang):
+        super().__init__(first,last,pay)
+        self.prog_lang = prog_lang
+
+class Manager(Employee):
+
+    def __init__(self, first, last, pay, employees=None):
+        super().__init__(first, last, pay)
+        if employees is None:
+            self.employees = []
+        else:
+            self.employees = employees
+    def add_emp(self,emp):
+        if emp not in self.employees:
+            self.employees.remove(emp)
+
+
+    def print_emps(self):
+        for emp in self.employees:
+            print('-->', emp.fullname())
+dev_1 =Developer('scavy','var',76300,'python')
+dev_2 = Developer('var','smoove', 210000,'java')
+
+mgr_1 = Manager('bert','mam', 123000,[dev_1])
+
+print(issubclass(Manager,Developer))
+
+
+
+#CLASS
+
+from item import Item
+
+class Phone(Item):
+    def __init__(self, name: str, price: float, quantity=0, broken_phones=0):
+     #call to super function to have access to all attributes/ method
+        super().__init__(name, price, quantity
+                         )
+
+        assert broken_phones >= 0, f'Broken_phones{broken_phones} is not greater or equal to zero!'
+
+        #   assign to self object=
+        self.broken_phones = broken_phones
+
+#Item
+import csv
+
+class Item:
+    pay_rate = 0.8  # The pay rate after 20% discount
+    all = []
+
+    def __init__(self, name: str, price: float, quantity=0):
+        # Run validations to the received arguments
+        assert price >= 0, f'price{price} is not greater or equal to zero!'
+        assert quantity >= 0, f'quantity{quantity} is not greater or equal to zero!'
+
+        # assign to self object
+        self.__name = name
+        self.__price = price
+        self.quantity = quantity
+
+        # actions to execute
+        Item.all.append(self)
+
+    @property
+    def price(self):
+        return self.__price
+
+    def apply_discount(self):
+        self.__price = self.__price * self.pay_rate
+
+    def apply_increment(self, increment_value):
+            self.__price = self.__price + self.__price * increment_value
+
+    @property
+    def name(self):
+        return self.__name
+
+    @name.setter
+    def name(self,value):
+        self.__name = value
+
+
+    def calculate_total_price(self):
+        return self.__price * self.quantity
+
+
+
+    @classmethod
+    def instantiate_from_csv(cls):
+        with open('items.csv', 'r ') as f:
+            reader = csv.DictReader(f)
+            items = list(reader)
+
+    def __repr__(self):
+        return f"Item('{self.name}', {self.__price}, {self.quantity})"
+
+
+def is_integer(num):
+    # We will count out the floats that point zero
+    # for i.e 5.0,10.0
+    if isinstance(num, float):
+        # count out the floats that are point zero
+        return num.is_integer()
+    elif isinstance(num, int):
+        return True
+    else:
+        return False
+
+    def __repr__(self):
+        return f"Item('{self.name}', {self.__price}, {self.quantity})"
+
+    def __connect(self,smpt_server):
+        pass
+
+    def __prepare_body(self):
+        return f"""
+        Hello Someone.
+        We have {self.name} {self.quantity} times.
+        Regards, JimshapedCoding
+"""
+
+    def __send(self):
+        pass
+
+    def send_email(self):
+        self.__connect()
+        self.__prepare_body()
+        self.__send()
+
+
